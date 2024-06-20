@@ -6,6 +6,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const nameList = document.getElementById('nameList');
 
     addButton.addEventListener('click', function() {
+        addName();
+    });
+
+    nameInput.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            addName();
+        }
+    });
+
+    function addName() {
         const name = nameInput.value.trim();
 
         if (name && !names.some(n => n.toLowerCase() === name.toLowerCase())) {
@@ -16,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         nameInput.value = '';
-    });
+    }
 
     function updateNameList() {
         nameList.innerHTML = '';
