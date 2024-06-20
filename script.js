@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const names = [];
+    const names = JSON.parse(localStorage.getItem('names')) || [];
 
     const nameInput = document.getElementById('nameInput');
     const addButton = document.getElementById('addButton');
@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
             names.push(name);
             names.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
             updateNameList();
+            localStorage.setItem('names', JSON.stringify(names));
         }
 
         nameInput.value = '';
@@ -26,4 +27,6 @@ document.addEventListener('DOMContentLoaded', function() {
             nameList.appendChild(listItem);
         });
     }
+
+    updateNameList();
 });
