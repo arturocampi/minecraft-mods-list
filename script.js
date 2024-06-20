@@ -22,10 +22,28 @@ document.addEventListener('DOMContentLoaded', function() {
         nameList.innerHTML = '';
         names.forEach(name => {
             const listItem = document.createElement('li');
-            listItem.className = 'list-group-item';
+            listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
             listItem.textContent = name;
+
+            const deleteIcon = document.createElement('span');
+            deleteIcon.className = 'delete-icon';
+            deleteIcon.innerHTML = '&times;';
+            deleteIcon.addEventListener('click', function() {
+                deleteName(name);
+            });
+
+            listItem.appendChild(deleteIcon);
             nameList.appendChild(listItem);
         });
+    }
+
+    function deleteName(nameToDelete) {
+        const index = names.findIndex(n => n.toLowerCase() === nameToDelete.toLowerCase());
+        if (index > -1) {
+            names.splice(index, 1);
+            updateNameList();
+            localStorage.setItem('names', JSON.stringify(names));
+        }
     }
 
     updateNameList();
